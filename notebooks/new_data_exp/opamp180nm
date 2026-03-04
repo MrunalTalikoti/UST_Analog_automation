@@ -1,0 +1,43 @@
+************************************************************************
+* auCdl Netlist:
+* 
+* Library Name:  2stageopamp
+* Top Cell Name: opamptwostage
+* View Name:     schematic
+* Netlisted on:  Feb 12 12:40:18 2026
+************************************************************************
+
+*.BIPOLAR
+*.RESI = 2000 
+*.RESVAL
+*.CAPVAL
+*.DIOPERI
+*.DIOAREA
+*.EQUATION
+*.SCALE METER
+*.MEGA
+.PARAM
+
+
+
+************************************************************************
+* Library Name: 2stageopamp
+* Cell Name:    opamptwostage
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT opamptwostage GND VDD V_inn V_inp V_out
+*.PININFO V_inn:I V_inp:I V_out:O GND:B VDD:B
+MPM3 V_out net2 VDD VDD pmos W=d L=180n M=1
+MPM2 net2 net1 VDD VDD pmos W=b L=180n M=1
+MPM1 net1 net1 VDD VDD pmos W=b L=180n M=1
+MPM4 net6 net6 VDD VDD pmos W=610n L=180n M=1
+MNM4 net4 net6 GND GND nmos W=c L=180n M=1
+MNM3 V_out net6 GND GND nmos W=c L=180n M=1
+MNM2 net2 V_inp net4 GND nmos W=a L=180n M=1
+MNM1 net1 V_inn net4 GND nmos W=a L=180n M=1
+MNM0 net6 net6 GND GND nmos W=c L=180n M=1
+MM0 V_out net5 V_out V_out pmoscap W=13.695u L=13.695u M=1
+RR0 net2 net5 5K $[polyhres] $W=600n $L=8.465u
+.ENDS
+
